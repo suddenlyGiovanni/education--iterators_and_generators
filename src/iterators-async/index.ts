@@ -1,24 +1,24 @@
 /* eslint-disable no-undef */
-import { createStore } from '../index'
+import { createStoreSync } from '../index'
 
-const store = createStore() //?
+const store = createStoreSync() //?
 
 interface Customer {
   name: string
   food: undefined | string[]
 }
 
-const customers = {
+const customers: Iterable<{ name: string; food: string[] }> = {
   [Symbol.iterator]: function() {
     let i = 0
     return {
       next: function() {
         i++
-        let customer = store.get('customer', i) as undefined | { name: string }
+        let customer = store.get('customer', i)
         if (!customer) {
           return { done: true }
         }
-        const customerFood = store.get('food', i) as undefined | string[]
+        const customerFood = store.get('food', i)
 
         return {
           value: { ...customer, food: customerFood },
@@ -34,3 +34,7 @@ iterator.next() //?
 iterator.next() //?
 iterator.next() //?
 iterator.next() //?
+
+for (const customer of customers) {
+  customer //?
+}

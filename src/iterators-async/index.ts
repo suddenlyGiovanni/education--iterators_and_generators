@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import { createStoreSync } from '../index'
+import { createStoreAsync } from '../index'
 
-const store = createStoreSync() //?
+const store = createStoreAsync() //?
 
 interface Customer {
   name: string
@@ -12,13 +12,13 @@ const customers: Iterable<{ name: string; food: string[] }> = {
   [Symbol.iterator]: function() {
     let i = 0
     return {
-      next: function() {
+      next: async function() {
         i++
-        let customer = store.get('customer', i)
+        let customer = await store.get('customer', i)
         if (!customer) {
           return { done: true }
         }
-        const customerFood = store.get('food', i)
+        const customerFood = await store.get('food', i)
 
         return {
           value: { ...customer, food: customerFood },
@@ -28,13 +28,10 @@ const customers: Iterable<{ name: string; food: string[] }> = {
     }
   },
 }
-
-const iterator = customers[Symbol.iterator]() //?
-iterator.next() //?
-iterator.next() //?
-iterator.next() //?
-iterator.next() //?
-
-for (const customer of customers) {
-  customer //?
-}
+;(async function f() {
+  const iterator = customers[Symbol.iterator]() //?
+  const customer1 = (await iterator.next()).value //?
+  // for await (const customer of customers) {
+  //   console.log(customer) //?
+  // }
+})().catch(e => console.error(e))

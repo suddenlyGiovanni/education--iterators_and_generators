@@ -1,27 +1,10 @@
-interface Customer {
-  name: string
-}
-
-type Food = string[]
-
-interface CustomersTable {
-  [key: number]: Customer
-}
-
-interface FoodsTable {
-  [key: number]: Food
-}
-
-interface Tables {
-  customer: CustomersTable
-  food: FoodsTable
-}
+import { Customer, Food, Tables } from './types'
 
 interface Store {
   get: (table: 'customer' | 'food', id: number) => Customer | Food
 }
 
-export default function createStore(): Store {
+export default function createStoreSync(): Store {
   const tables: Tables = {
     customer: {
       1: { name: 'John' },
@@ -40,6 +23,6 @@ export default function createStore(): Store {
   }
 }
 
-const localStore = createStore() //?
+const localStore = createStoreSync() //?
 
 const john = localStore.get('customer', 1) //?

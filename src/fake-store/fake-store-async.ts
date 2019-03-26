@@ -1,12 +1,8 @@
 import { Customer, Food, Tables } from './types'
+import { delay } from '../index'
 
 interface Store {
   get: (table: 'customer' | 'food', id: number) => Promise<Customer | Food>
-}
-
-function delay(ms: number): Promise<number> {
-  // eslint-disable-next-line no-undef
-  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 export default function createStoreAsync(): Store {

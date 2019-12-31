@@ -11,7 +11,7 @@
     "@commitlint/config-conventional": "^7.5.0",
     "@types/random-number": "^0.0.0",
     "@typescript-eslint/eslint-plugin": "^1.5.0",
-    "@typescript-eslint/parser": "^1.5.0",
+    "@typescript-eslint/parser": "^2.14.0",
     "eslint": "^5.15.3",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
